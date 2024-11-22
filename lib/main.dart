@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_demo/sample/sample.dart';
 
 void main() {
   runApp(const MyApp());
@@ -15,18 +16,15 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         useMaterial3: true,
         colorScheme:
-        ColorScheme.fromSeed(seedColor: Colors.deepPurple.shade900),
+            ColorScheme.fromSeed(seedColor: Colors.deepPurple.shade900),
       ).copyWith(
-          textSelectionTheme: TextSelectionThemeData(
-              selectionHandleColor: Theme
-                  .of(context)
-                  .colorScheme
-                  .onPrimary,
-              selectionColor: Theme
-                  .of(context)
-                  .colorScheme
-                  .secondary)),
-      home: MyHomePage(),
+        textSelectionTheme: TextSelectionThemeData(
+          selectionHandleColor: Theme.of(context).colorScheme.onPrimary,
+          selectionColor: Theme.of(context).colorScheme.secondary,
+        ),
+        brightness: Brightness.dark
+      ),
+      home: Sample(),
     );
   }
 }
@@ -49,7 +47,8 @@ class _MyHomePageState extends State<MyHomePage> {
         backgroundColor: theme.colorScheme.primary,
         body: Column(
           children: [
-            Expanded(child: Center(
+            Expanded(
+                child: Center(
               child: ListView(
                 shrinkWrap: true,
                 children: [
@@ -87,7 +86,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                 borderSide: BorderSide(
                                     color: theme.colorScheme.onPrimary,
                                     width: 2.0),
-                            borderRadius: BorderRadius.circular(10)),
+                                borderRadius: BorderRadius.circular(10)),
                             disabledBorder: OutlineInputBorder(
                                 borderSide: BorderSide(
                                     color: theme.colorScheme.onPrimary,
@@ -110,15 +109,14 @@ class _MyHomePageState extends State<MyHomePage> {
                             prefixIcon: Icon(Icons.account_circle_rounded),
                             suffixIcon: textController.text.isNotEmpty
                                 ? IconButton(
-                                onPressed: () {
-                                  setState(() {
-                                    textController.clear();
-                                  });
-                                },
-                                icon: Icon(Icons.close))
+                                    onPressed: () {
+                                      setState(() {
+                                        textController.clear();
+                                      });
+                                    },
+                                    icon: Icon(Icons.close))
                                 : null,
                             suffixIconColor: theme.colorScheme.onPrimary,
-
                           ),
                           cursorColor: theme.colorScheme.onPrimary,
                           style: TextStyle(
@@ -128,9 +126,12 @@ class _MyHomePageState extends State<MyHomePage> {
                           cursorOpacityAnimates: true,
                           keyboardType: TextInputType.number,
                           maxLength: 10,
-                          onTapOutside: (_) =>
-                          {FocusScope.of(context).requestFocus(FocusNode())},
-                          inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                          onTapOutside: (_) => {
+                            FocusScope.of(context).requestFocus(FocusNode())
+                          },
+                          inputFormatters: [
+                            FilteringTextInputFormatter.digitsOnly
+                          ],
                           onChanged: (_) {
                             setState(() {});
                           },
@@ -148,16 +149,19 @@ class _MyHomePageState extends State<MyHomePage> {
                         child: FilledButton(
                           onPressed: () {},
                           style: ButtonStyle(
-                              backgroundColor:
-                              WidgetStateProperty.all(theme.colorScheme.onPrimary),
-                              shape: WidgetStateProperty.all(RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.all(Radius.circular(10))))),
+                              backgroundColor: WidgetStateProperty.all(
+                                  theme.colorScheme.onPrimary),
+                              shape: WidgetStateProperty.all(
+                                  RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(10))))),
                           child: Padding(
                             padding: const EdgeInsets.symmetric(
                                 vertical: 13.0, horizontal: 30.0),
                             child: Text(
                               "Next",
-                              style: TextStyle(color: theme.colorScheme.primary),
+                              style:
+                                  TextStyle(color: theme.colorScheme.primary),
                             ),
                           ),
                         ),
@@ -171,7 +175,6 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
             ))
           ],
-        )
-    );
+        ));
   }
 }
