@@ -3,16 +3,17 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
-class ImagePicker extends StatefulWidget {
-  const ImagePicker({super.key});
+class ImagePickerWidget extends StatefulWidget {
+  const ImagePickerWidget({super.key});
 
   @override
-  State<ImagePicker> createState() => _ImagePickerState();
+  State<ImagePickerWidget> createState() => _ImagePickerWidgetState();
 }
 
-class _ImagePickerState extends State<ImagePicker> {
-  final ImagePicker imagePicker = ImagePicker();
+class _ImagePickerWidgetState extends State<ImagePickerWidget> {
+  ImagePicker _imagePicker = ImagePicker();
   XFile? file;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,18 +27,35 @@ class _ImagePickerState extends State<ImagePicker> {
               color: Colors.grey,
               margin: EdgeInsets.all(15),
               child: Center(
-                child: file == null ? Text("Choose an Image") : Image.file(
-                  File(file!.path)
+                child: file == null
+                    ? Text("Choose an Image")
+                    : Image.file(
+                  File(file!.path),
+                  fit: BoxFit.cover,
+                  width: double.infinity,
                 ),
               ),
             ),
-            ElevatedButton(onPressed: () async {
-
-            }, child: Text("Choose Image")
-            )
+            SizedBox(
+              height: 40,
+            ),
+            ElevatedButton(
+                onPressed: () {
+                  _pickImage();
+                },
+                child: Text("Choose Image"))
           ],
         ),
       ),
     );
+  }
+
+  Future _pickImage() async {
+    final photo = await _imagePicker.pickImage(source: ImageSource.camera);
+    setState(() {
+      if (photo != null) {
+        file = photo;
+      }
+    });
   }
 }

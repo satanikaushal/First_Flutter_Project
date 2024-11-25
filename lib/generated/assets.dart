@@ -13,5 +13,6 @@ class Assets {
   static const String fontsPoppinsThin = 'assets/fonts/Poppins-Thin.ttf';
   static const String imagesBgImageFlutter = 'assets/images/bg_image_flutter.jpg';
   static const String imagesChip = 'assets/images/chip.png';
+  static const String imagesIcAppLogo = 'assets/images/ic_app_logo.png';
 
 }

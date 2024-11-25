@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_demo/image_picker/image_picker.dart';
 import 'package:flutter_demo/sample/sample.dart';
+import 'package:flutter_demo/widgets/first_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -17,17 +19,12 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
         colorScheme:
             ColorScheme.fromSeed(seedColor: Colors.deepPurple.shade900),
-      ).copyWith(
-        textSelectionTheme: TextSelectionThemeData(
-          selectionHandleColor: Theme.of(context).colorScheme.onPrimary,
-          selectionColor: Theme.of(context).colorScheme.secondary,
-        ),
-        brightness: Brightness.dark
       ),
-      home: Sample(),
+      home: FirstScreenWidget(),
     );
   }
 }
+
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key});
