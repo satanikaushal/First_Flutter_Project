@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_demo/widgets/otp_screen.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:phone_number_hint/phone_number_hint.dart';
 
 class FirstScreenWidget extends StatefulWidget {
   FirstScreenWidget({super.key});
@@ -13,6 +14,39 @@ class FirstScreenWidget extends StatefulWidget {
 
 class _FirstScreenWidgetState extends State<FirstScreenWidget> {
   var mobileNumber = "";
+  var textController = TextEditingController();
+  final _phoneNumberHintPlugin = PhoneNumberHint();
+
+// Platform messages are asynchronous, so we initialize in an async method.
+  Future<void> getPhoneNumber() async {
+    String? result;
+    // Platform messages may fail, so we use a try/catch PlatformException.
+    // We also handle the message potentially returning null.
+    try {
+      result = await _phoneNumberHintPlugin.requestHint(
+      ) ?? '';
+      textController.text = result.toString().substring(result.toString().length - 10);
+    } on PlatformException {
+      result = 'Failed to get hint.';
+    }
+
+    // If the widget was removed from the tree while the asynchronous platform
+    // message was in flight, we want to discard the reply rather than calling
+    // setState to update our non-existent appearance.
+    if (!mounted) return;
+
+    setState(() {
+      mobileNumber = result ?? '';
+    });
+  }
+
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getPhoneNumber();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -64,6 +98,7 @@ class _FirstScreenWidgetState extends State<FirstScreenWidget> {
                         margin: EdgeInsets.symmetric(horizontal: 24),
                         height: 50,
                         child: TextField(
+                          controller: textController,
                           decoration: InputDecoration(
                             enabledBorder: OutlineInputBorder(
                               borderSide: BorderSide(

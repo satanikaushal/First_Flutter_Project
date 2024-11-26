@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:pinput/pinput.dart';
 
 class OtpScreenWidget extends StatefulWidget {
@@ -50,7 +51,10 @@ class _OtpScreenWidgetState extends State<OtpScreenWidget> {
                   borderRadius: BorderRadius.circular(10),
                 ),
               ),
-              isCursorAnimationEnabled: false
+              isCursorAnimationEnabled: false,
+              inputFormatters: [
+                FilteringTextInputFormatter.allow(RegExp(r'[0-9]'))
+              ],
             )
           ],
         ),
