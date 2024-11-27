@@ -2,6 +2,7 @@ import 'package:async_wallpaper/async_wallpaper.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 class WallpaperSetWidget extends StatefulWidget {
@@ -137,7 +138,7 @@ class _WallpaperSetWidgetState extends State<WallpaperSetWidget> {
                                                       borderRadius:
                                                           BorderRadius.circular(
                                                               20)))),
-                                          child: Text("Home Screen"),
+                                          child: Text("Home Screen", style: GoogleFonts.raleway(),),
                                         ),
                                       ),
                                       SizedBox(
@@ -160,7 +161,7 @@ class _WallpaperSetWidgetState extends State<WallpaperSetWidget> {
                                                         borderRadius:
                                                         BorderRadius.circular(
                                                             20)))),
-                                            child: Text("Lock Screen")),
+                                            child: Text("Lock Screen", style: GoogleFonts.raleway(),)),
                                       ),
                                       SizedBox(
                                         height: 20,
@@ -182,7 +183,7 @@ class _WallpaperSetWidgetState extends State<WallpaperSetWidget> {
                                                         borderRadius:
                                                         BorderRadius.circular(
                                                             20)))),
-                                            child: Text("Both")),
+                                            child: Text("Both", style: GoogleFonts.raleway(),)),
                                       ),
                                       SizedBox(
                                         height: 20,
@@ -202,7 +203,7 @@ class _WallpaperSetWidgetState extends State<WallpaperSetWidget> {
                         backgroundColor: WidgetStatePropertyAll(Colors.white)),
                     child: Text(
                       "Set as Wallpaper",
-                      style: TextStyle(
+                      style: GoogleFonts.raleway(
                           fontWeight: FontWeight.w600,
                           fontSize: 16,
                           color: Colors.black),
