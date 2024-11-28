@@ -1,10 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_demo/animations/animations_basic_widget.dart';
-import 'package:flutter_demo/image_picker/image_picker.dart';
-import 'package:flutter_demo/images_api/images_api_widget.dart';
-import 'package:flutter_demo/sample/sample.dart';
-import 'package:flutter_demo/widgets/first_screen.dart';
+import 'package:flutter_demo/widgets/dashboard_screen_widget.dart';
 
 void main() {
   runApp(const MyApp());
@@ -24,7 +20,7 @@ class MyApp extends StatelessWidget {
                 brightness: Brightness.light,
                 seedColor: Colors.green.shade700),
       ),
-      home: FirstScreenWidget(),
+      home: DashboardScreenWidget(),
     );
   }
 }

@@ -14,5 +14,15 @@ class Assets {
   static const String imagesBgImageFlutter = 'assets/images/bg_image_flutter.jpg';
   static const String imagesChip = 'assets/images/chip.png';
   static const String imagesIcAppLogo = 'assets/images/ic_app_logo.png';
+  static const String imagesIcCallDrawer = 'assets/images/ic_call_drawer.png';
+  static const String imagesIcCoconutMain = 'assets/images/ic_coconut_main.png';
+  static const String imagesIcCompletedOrders = 'assets/images/ic_completed_orders.png';
+  static const String imagesIcDeleteAccount = 'assets/images/ic_delete_account.png';
+  static const String imagesIcIncompleteOrders = 'assets/images/ic_incomplete_orders.png';
+  static const String imagesIcLogoutAccount = 'assets/images/ic_logout_account.png';
+  static const String imagesIcManageAddress = 'assets/images/ic_manage_address.png';
+  static const String imagesIcPrivacyPolicy = 'assets/images/ic_privacy_policy.png';
+  static const String imagesIcTermsConditions = 'assets/images/ic_terms_conditions.png';
+  static const String imagesMyBgImage = 'assets/images/my_bg_image.png';
 
 }

@@ -62,7 +62,7 @@ class _FirstScreenWidgetState extends State<FirstScreenWidget>
     super.initState();
     var animationDuration = 1000;
     var fadeAnimationDuration = 500;
-    var delayStart = 500;
+    var delayStart = 1000;
     var delayGap = 100;
     var curve = Curves.elasticOut;
     var opacityCurve = Curves.linear;
