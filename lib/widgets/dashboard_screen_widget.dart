@@ -24,7 +24,9 @@ class _DashboardScreenWidgetState extends State<DashboardScreenWidget> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
+        backgroundColor: Colors.white,
         title: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -62,6 +64,7 @@ class _DashboardScreenWidgetState extends State<DashboardScreenWidget> {
         ),
       ),
       drawer: Drawer(
+        backgroundColor: Colors.white,
         child: SafeArea(
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 12.0),
@@ -135,14 +138,26 @@ class _DashboardScreenWidgetState extends State<DashboardScreenWidget> {
                   // height: 1,
                   color: Colors.grey.shade400,
                 ),
-                ListView.builder(
-                  itemBuilder: (BuildContext context, int index) {
-                    return ListTile(
-                      leading: Image.asset(tilesList[index][0]),
-                      title: Text(tilesList[index][1]),
-                    );
-                  },
-                  itemCount: tilesList.length,
+                Expanded(
+                  child: ListView.builder(
+                    itemCount: tilesList.length, // Number of items in the list
+                    itemBuilder: (context, index) {
+                      final item = tilesList[index];
+                      return ListTile(
+                        leading: Image.asset(item[0], height: 25, width: 25,),
+                        title: Text(
+                            item[1],
+                          style: GoogleFonts.poppins(
+                            letterSpacing: 0,
+                            fontWeight: FontWeight.w600,
+                            fontSize: 15
+                          ),
+                        ),
+                        minVerticalPadding: 0,
+                        minTileHeight: 52,
+                      );
+                    },
+                  ),
                 )
               ],
             ),

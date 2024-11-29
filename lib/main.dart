@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_demo/pull_refresh_indicator/pull_to_refresh_widget.dart';
 import 'package:flutter_demo/widgets/dashboard_screen_widget.dart';
+import 'package:flutter_demo/widgets/your_profile_widget.dart';
 
 void main() {
   runApp(const MyApp());
@@ -20,7 +22,7 @@ class MyApp extends StatelessWidget {
                 brightness: Brightness.light,
                 seedColor: Colors.green.shade700),
       ),
-      home: DashboardScreenWidget(),
+      home: PullToRefreshWidget(),
     );
   }
 }
