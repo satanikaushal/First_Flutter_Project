@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_demo/painter/painter_widget.dart';
 import 'package:flutter_demo/pull_refresh_indicator/pull_to_refresh_widget.dart';
 import 'package:flutter_demo/widgets/dashboard_screen_widget.dart';
 import 'package:flutter_demo/widgets/your_profile_widget.dart';
@@ -19,10 +20,10 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
         colorScheme:
             ColorScheme.fromSeed(
-                brightness: Brightness.light,
+                brightness: Brightness.dark,
                 seedColor: Colors.green.shade700),
       ),
-      home: PullToRefreshWidget(),
+      home: Signature(),
     );
   }
 }
