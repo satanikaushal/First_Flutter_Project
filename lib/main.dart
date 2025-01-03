@@ -1,16 +1,107 @@
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_demo/painter/painter_widget.dart';
-import 'package:flutter_demo/pull_refresh_indicator/pull_to_refresh_widget.dart';
-import 'package:flutter_demo/widgets/dashboard_screen_widget.dart';
-import 'package:flutter_demo/widgets/your_profile_widget.dart';
+import 'package:flutter_demo/firebase_options.dart';
+import 'package:flutter_demo/handling_notifications/handling_notifications_screen.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
-void main() {
+Future<void> showNotification(RemoteMessage message, String prefix) async {
+  var channelId = "channel_id";
+  var channelName = "First channel";
+  var notificationChannel = AndroidNotificationChannel(
+    channelId,
+    channelName,
+    importance: Importance.high,
+  );
+  FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+      FlutterLocalNotificationsPlugin();
+  await flutterLocalNotificationsPlugin
+      .resolvePlatformSpecificImplementation<
+          AndroidFlutterLocalNotificationsPlugin>()
+      ?.createNotificationChannel(notificationChannel);
+  var androidDetails = AndroidNotificationDetails(
+    channelId,
+    channelName,
+    channelDescription: "This will be the description for the channel",
+    icon: "@mipmap/launcher_icon",
+    importance: Importance.high,
+    priority: Priority.high,
+  );
+  var notificationDetails = NotificationDetails(android: androidDetails);
+  var title = message.data["title"] ?? "Title";
+  var description = message.data["body"] ?? "Notification body";
+  if (message.notification == null && message.data.isNotEmpty) {
+    await flutterLocalNotificationsPlugin.show(
+      message.notification.hashCode,
+      prefix + title,
+      description,
+      notificationDetails
+    );
+  }
+}
+
+@pragma('vm:entry-point')
+Future<void> showNotificationBackground(RemoteMessage message) async {
+  // await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  await showNotification(message, "Background : ");
+}
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  AndroidInitializationSettings androidInitializationSettings =
+      AndroidInitializationSettings("@mipmap/launcher_icon");
+  FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+      FlutterLocalNotificationsPlugin();
+  InitializationSettings initializationSettings =
+      InitializationSettings(android: androidInitializationSettings);
+  flutterLocalNotificationsPlugin.initialize(
+    initializationSettings,
+    onDidReceiveBackgroundNotificationResponse:(details) {
+      print("onDidReceiveBackgroundNotificationResponse ${details.payload}");
+    },
+    onDidReceiveNotificationResponse: (details) {
+      print("onDidReceiveNotificationResponse ${details.payload}");
+    },
+  );
+  FirebaseMessaging.onBackgroundMessage(showNotificationBackground);
+  FirebaseMessaging.onMessage.listen(
+    (message) {
+      showNotification(message, "Foreground : ");
+    },
+  );
   runApp(const MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  @override
+  void initState() {
+    super.initState();
+    FirebaseMessaging.onMessageOpenedApp.listen(
+      (RemoteMessage message) {
+        Navigator.of(context).pushReplacement(MaterialPageRoute(
+          builder: (context) => HandlingNotificationsScreen(
+              title: message.data["title"] + " onMessageOpenedApp"),
+        ));
+      },
+    );
+    FirebaseMessaging.instance.getInitialMessage().then(
+      (RemoteMessage? value) {
+        Navigator.of(context).pushReplacement(MaterialPageRoute(
+          builder: (context) => HandlingNotificationsScreen(
+              title: value?.data["title"] + " getInitialMessage"),
+        ));
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -18,16 +109,15 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         useMaterial3: true,
-        colorScheme:
-            ColorScheme.fromSeed(
-                brightness: Brightness.dark,
-                seedColor: Colors.green.shade700),
+        colorScheme: ColorScheme.fromSeed(
+            brightness: Brightness.dark, seedColor: Colors.green.shade700),
       ),
-      home: Signature(),
+      home: HandlingNotificationsScreen(
+        title: "Default text",
+      ),
     );
   }
 }
-
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key});
