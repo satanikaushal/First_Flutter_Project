@@ -6,6 +6,8 @@ import 'package:flutter_demo/firebase_options.dart';
 import 'package:flutter_demo/handling_notifications/handling_notifications_screen.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
+import 'images_api/images_api_widget.dart';
+
 Future<void> showNotification(RemoteMessage message, String prefix) async {
   var channelId = "channel_id";
   var channelName = "First channel";
@@ -105,6 +107,13 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
+
+    SystemChrome.setSystemUIOverlayStyle(
+      SystemUiOverlayStyle(
+        systemNavigationBarColor: Colors.black.withOpacity(0.01),
+      )
+    );
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
@@ -112,9 +121,7 @@ class _MyAppState extends State<MyApp> {
         colorScheme: ColorScheme.fromSeed(
             brightness: Brightness.dark, seedColor: Colors.green.shade700),
       ),
-      home: HandlingNotificationsScreen(
-        title: "Default text",
-      ),
+      home: ImagesApiWidget(),
     );
   }
 }

@@ -48,7 +48,6 @@ class _ImagesApiWidgetState extends State<ImagesApiWidget> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     fetchApi();
   }
@@ -60,7 +59,8 @@ class _ImagesApiWidgetState extends State<ImagesApiWidget> {
     return Scaffold(
         appBar: AppBar(
           title: Text("Select Wallpaper", style: GoogleFonts.raleway(
-            fontWeight: FontWeight.w500
+            fontWeight: FontWeight.w500,
+            color: Colors.black
           )),
           backgroundColor: Colors.white,
           scrolledUnderElevation: 0,
